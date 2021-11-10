@@ -16,7 +16,7 @@ class _PointsState extends State<Points> {
   }
 
   BoxShadow shadow = BoxShadow(
-    color: Colors.black,
+    color: Colors.white38,
     blurRadius: 10.0, // has the effect of softening the shadow
     spreadRadius: 1.0, // has the effect of extending the shadow
     offset: Offset(

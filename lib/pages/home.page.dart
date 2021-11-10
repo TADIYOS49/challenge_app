@@ -19,11 +19,7 @@ class _HomeState extends State<Home> {
     });
   }
 
-  static const List<Widget> _pages = <Widget>[
-    Points(),
-    Main(),
-    Communtiy()
-  ];
+  static const List<Widget> _pages = <Widget>[Points(), Main(), Communtiy()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

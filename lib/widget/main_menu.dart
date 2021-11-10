@@ -1,3 +1,4 @@
+import 'package:challeng/pages/challenges.page.dart';
 import 'package:flutter/material.dart';
 
 class Main extends StatefulWidget {
@@ -8,8 +9,19 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
+  void _Navigation(int index) {
+    if (index == 1) {
+      print("personal");
+    } else if (index == 2) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Challenge()));
+    } else {
+      print("Log Media");
+    }
+  }
+
   BoxShadow shadow = BoxShadow(
-    color: Colors.black,
+    color: Colors.white38,
     blurRadius: 10.0, // has the effect of softening the shadow
     spreadRadius: 1.0, // has the effect of extending the shadow
     offset: Offset(
@@ -36,7 +48,7 @@ class _MainState extends State<Main> {
             children: [
               InkWell(
                 onTap: () {
-                  print("test");
+                  _Navigation(1);
                 },
                 child: Container(
                     decoration: BoxDecoration(
@@ -56,7 +68,9 @@ class _MainState extends State<Main> {
                     ))),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  _Navigation(2);
+                },
                 child: Container(
                     decoration: BoxDecoration(
                         boxShadow: [shadow],
@@ -75,7 +89,9 @@ class _MainState extends State<Main> {
                     ))),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  _Navigation(3);
+                },
                 child: Container(
                     decoration: BoxDecoration(
                         boxShadow: [shadow],
