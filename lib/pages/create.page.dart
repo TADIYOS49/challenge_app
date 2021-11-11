@@ -1,3 +1,4 @@
+import 'package:challeng/pages/goal_create.page.dart';
 import 'package:flutter/material.dart';
 
 class Create_Challenge extends StatefulWidget {
@@ -69,9 +70,16 @@ class _Create_ChallengeState extends State<Create_Challenge> {
         ));
   }
 
-  Widget actionbutton(String name) {
+  Widget actionbutton(String name, int index) {
     return FlatButton.icon(
-        onPressed: () {},
+        onPressed: () {
+          if (index == 1) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Goal_Create()));
+          } else if (index == 2) {
+            print("add team has been clicked");
+          }
+        },
         icon: Icon(Icons.add_circle_outline_rounded, color: Colors.white70),
         label: Text(
           name,
@@ -212,14 +220,14 @@ class _Create_ChallengeState extends State<Create_Challenge> {
               smallcontainer("here is an example", "6"),
               space(0.02),
               //button to add
-              actionbutton("Add Goal"),
+              actionbutton("Add Goal", 1),
               label("Team"),
               space(0.02),
               maincontainer("Team Name", ""),
               space(0.02),
               smallcontainer("Team 1", ""),
               space(0.02),
-              actionbutton("Add Team")
+              actionbutton("Add Team", 2)
             ],
           ),
         ),
