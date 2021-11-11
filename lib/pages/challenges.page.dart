@@ -1,4 +1,5 @@
 import 'package:challeng/pages/create.page.dart';
+import 'package:challeng/pages/search.page.dart';
 import 'package:flutter/material.dart';
 
 class Challenge extends StatefulWidget {
@@ -87,7 +88,8 @@ class _ChallengeState extends State<Challenge> {
                 space(),
                 InkWell(
                   onTap: () {
-                    print("test");
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Search()));
                   },
                   child: Container(
                       decoration: BoxDecoration(
