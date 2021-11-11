@@ -155,6 +155,7 @@ class _Create_ChallengeState extends State<Create_Challenge> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [IconButton(icon: Icon(Icons.save_rounded), onPressed: () {})],
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Text(

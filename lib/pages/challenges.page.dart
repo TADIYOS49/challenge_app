@@ -144,7 +144,7 @@ class _ChallengeState extends State<Challenge> {
                           color: Colors.white54),
                       height: _dropdown
                           ? MediaQuery.of(context).size.height * 0.5
-                          : MediaQuery.of(context).size.height * 0.1,
+                          : MediaQuery.of(context).size.height * 0.09,
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: Column(
                         children: [

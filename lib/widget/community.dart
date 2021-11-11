@@ -1,3 +1,4 @@
+import 'package:challeng/pages/challenges.page.dart';
 import 'package:flutter/material.dart';
 
 class Communtiy extends StatefulWidget {
@@ -31,9 +32,13 @@ class _CommuntiyState extends State<Communtiy> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
               InkWell(
                 onTap: () {
-                  print("test");
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Challenge()));
                 },
                 child: Container(
                     decoration: BoxDecoration(

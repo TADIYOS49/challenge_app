@@ -66,6 +66,7 @@ class _Goal_CreateState extends State<Goal_Create> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [IconButton(icon: Icon(Icons.save_rounded), onPressed: () {})],
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Text(

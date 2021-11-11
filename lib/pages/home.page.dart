@@ -23,7 +23,60 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: [
+          DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              dropdownColor: Color.fromRGBO(2, 59, 71, 0.5),
+              elevation: 0,
+              hint: SizedBox(),
+              icon: const Icon(Icons.more_vert_rounded),
+              iconDisabledColor: Colors.white,
+              iconEnabledColor: Colors.white,
+              iconSize: 24,
+              onChanged: (String newValue) {
+                // if (newValue == "Settings") {
+                //   // Navigator.of(context).push(
+                //   //     MaterialPageRoute(builder: (context) => Settings()));
+                // } else if (newValue == "About") {
+                //   // Navigator.of(context)
+                //   //     .push(MaterialPageRoute(builder: (context) => About()));
+                // }
+              },
+              items: <String>['About']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: InkWell(
+                    child: Text(
+                      value,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.03,
+          )
+        ],
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Text(
+          "Super Tracker",
+          style: TextStyle(
+            fontStyle: FontStyle.italic,
+            //fontWeight: FontWeight.w900,
+            fontSize: 24,
+            color: Colors.white70,
+          ),
+        ),
+      ),
       extendBody: true,
+      extendBodyBehindAppBar: true,
       body: _pages.elementAt(_selectedindex),
       // Container(
       //     decoration: BoxDecoration(
