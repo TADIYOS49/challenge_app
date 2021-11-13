@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "882102668048",
+    "project_id": "challenge-app-74095",
+    "storage_bucket": "challenge-app-74095.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882102668048:android:79047253d2bbceed577395",
+        "android_client_info": {
+          "package_name": "com.challeng.challeng"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "882102668048-hm1cefid52fddh1dnqrmgh288ovamtf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLq1pECyVHou6UB__GeduI0uRhOaIK7bE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882102668048-hm1cefid52fddh1dnqrmgh288ovamtf5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882102668048:android:c36edccf1ff5f49e577395",
+        "android_client_info": {
+          "package_name": "com.eve.supertracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "882102668048-hm1cefid52fddh1dnqrmgh288ovamtf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLq1pECyVHou6UB__GeduI0uRhOaIK7bE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882102668048-hm1cefid52fddh1dnqrmgh288ovamtf5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
