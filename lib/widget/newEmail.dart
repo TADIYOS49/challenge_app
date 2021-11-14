@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NewEmail extends StatefulWidget {
+  static TextEditingController emailController = TextEditingController();
   @override
   _NewEmailState createState() => _NewEmailState();
 }
@@ -13,7 +14,16 @@ class _NewEmailState extends State<NewEmail> {
       child: Container(
         height: 60,
         width: MediaQuery.of(context).size.width,
-        child: TextField(
+        child: TextFormField(
+          controller: NewEmail.emailController,
+          validator: (value) {
+            if (value.isEmpty) {
+              return 'Enter an Email Address';
+            } else if (!value.contains('@')) {
+              return 'Please enter a valid email address';
+            }
+            return null;
+          },
           style: TextStyle(
             color: Colors.white,
           ),

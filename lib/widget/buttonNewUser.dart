@@ -1,3 +1,8 @@
+import 'package:challeng/pages/home.page.dart';
+import 'package:challeng/pages/newuser.page.dart';
+import 'package:challeng/widget/newEmail.dart';
+import 'package:challeng/widget/password.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ButtonNewUser extends StatefulWidget {
@@ -6,6 +11,54 @@ class ButtonNewUser extends StatefulWidget {
 }
 
 class _ButtonNewUserState extends State<ButtonNewUser> {
+  bool isLoading = false;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  //  DatabaseReference dbRef =
+
+  //     FirebaseDatabase.instance.reference().child("Users");
+
+  void registerToFb() {
+    firebaseAuth
+        .createUserWithEmailAndPassword(
+            email: NewEmail.emailController.text,
+            password: PasswordInput.passwordController.text)
+        .then((res) {
+      isLoading = false;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
+    }).catchError((err) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: Color.fromRGBO(2, 59, 71, 1),
+              title: Text(
+                "Error",
+                style: TextStyle(color: Colors.white70),
+              ),
+              content:
+                  Text(err.message, style: TextStyle(color: Colors.white70)),
+              actions: [
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.white54),
+                  ),
+                  child: Text(
+                    "Ok",
+                    style: TextStyle(color: Colors.blue[900]),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,7 +80,12 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
         ], color: Colors.white, borderRadius: BorderRadius.circular(30)),
         child: FlatButton(
           onPressed: () {
-            Navigator.pop(context);
+            if (NewUser.formKey.currentState.validate()) {
+              setState(() {
+                isLoading = true;
+              });
+              registerToFb();
+            }
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

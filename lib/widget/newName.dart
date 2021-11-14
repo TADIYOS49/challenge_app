@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NewNome extends StatefulWidget {
+  static TextEditingController nameController = TextEditingController();
   @override
   _NewNomeState createState() => _NewNomeState();
 }
@@ -13,7 +14,14 @@ class _NewNomeState extends State<NewNome> {
       child: Container(
         height: 60,
         width: MediaQuery.of(context).size.width,
-        child: TextField(
+        child: TextFormField(
+          controller: NewNome.nameController,
+           validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Enter User Name';
+                    }
+                    return null;
+                  },
           style: TextStyle(
             color: Colors.white,
           ),

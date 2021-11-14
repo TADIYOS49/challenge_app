@@ -8,6 +8,7 @@ import 'package:challeng/widget/userOld.dart';
 import 'package:flutter/material.dart';
 
 class NewUser extends StatefulWidget {
+  static final formKey = GlobalKey<FormState>();
   @override
   _NewUserState createState() => _NewUserState();
 }
@@ -28,21 +29,24 @@ class _NewUserState extends State<NewUser> {
         ),
         child: ListView(
           children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    SingUp(),
-                    TextNew(),
-                  ],
-                ),
-                NewNome(),
-                NewEmail(),
-                PasswordInput(),
-                ButtonNewUser(),
-                UserOld(),
-              ],
+              Form(
+              key: NewUser.formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      SingUp(),
+                      TextNew(),
+                    ],
+                  ),
+                  NewNome(),
+                  NewEmail(),
+                  PasswordInput(),
+                  ButtonNewUser(),
+                  UserOld(),
+                ],
+              ),
             ),
           ],
         ),

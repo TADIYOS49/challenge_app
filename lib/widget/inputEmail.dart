@@ -28,7 +28,7 @@ class _InputEmailState extends State<InputEmail> {
             ),
             border: const OutlineInputBorder(),
             fillColor: Colors.lightBlueAccent,
-            labelText: 'Name',
+            labelText: 'Email',
             labelStyle: TextStyle(
               color: Colors.white70,
             ),
