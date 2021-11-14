@@ -1,6 +1,8 @@
+import 'package:challeng/pages/login.page.dart';
 import 'package:challeng/widget/community.dart';
 import 'package:challeng/widget/main_menu.dart';
 import 'package:challeng/widget/points.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -11,6 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   int _selectedindex = 1;
 
   void _NavigationClick(int index) {
@@ -44,11 +47,27 @@ class _HomeState extends State<Home> {
                 //   //     .push(MaterialPageRoute(builder: (context) => About()));
                 // }
               },
-              items: <String>['About']
+              items: <String>['About', 'Sign-Out']
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: InkWell(
+                    onTap: () async {
+                      if (value == 'About') {
+                        print("about page has been clicked");
+                      }
+                      if (value == 'Sign-Out') {
+                        await firebaseAuth.signOut();
+                        Navigator.pushAndRemoveUntil<dynamic>(
+                          context,
+                          MaterialPageRoute<dynamic>(
+                            builder: (BuildContext context) => LoginPage(),
+                          ),
+                          (route) =>
+                              false, //if you want to disable back feature set to false
+                        );
+                      }
+                    },
                     child: Text(
                       value,
                       textAlign: TextAlign.center,

@@ -43,11 +43,11 @@ class IntroScreen extends StatelessWidget {
               fontSize: 20.0,
               color: Colors.white70),
         ),
-        //image: Image.asset('assets/images/dart.png', fit: BoxFit.scaleDown),
         backgroundColor: Color.fromRGBO(2, 59, 71, 1),
         styleTextUnderTheLoader: new TextStyle(),
         photoSize: 100.0,
         onClick: () => print("flutter"),
-        loaderColor: Colors.white54);
+        loaderColor: Colors.white54
+        );
   }
 }
