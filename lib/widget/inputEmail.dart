@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
 class InputEmail extends StatefulWidget {
+  static TextEditingController emailController=TextEditingController();
+
+
   @override
   _InputEmailState createState() => _InputEmailState();
 }
 
 class _InputEmailState extends State<InputEmail> {
+ 
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -13,7 +17,8 @@ class _InputEmailState extends State<InputEmail> {
       child: Container(
         height: 60,
         width: MediaQuery.of(context).size.width,
-        child: TextField(
+        child: TextFormField(
+          controller: InputEmail.emailController,
           style: TextStyle(
             color: Colors.white,
           ),
@@ -28,6 +33,14 @@ class _InputEmailState extends State<InputEmail> {
               color: Colors.white70,
             ),
           ),
+          validator: (value) {
+            if (value.isEmpty) {
+              return 'Enter Email Address';
+            } else if (!value.contains('@')) {
+              return 'Please enter a valid email address!';
+            }
+            return null;
+          },
         ),
       ),
     );

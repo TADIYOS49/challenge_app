@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
 class PasswordInput extends StatefulWidget {
+   static TextEditingController passwordController = TextEditingController();
+
+
   @override
   _PasswordInputState createState() => _PasswordInputState();
 }
 
 class _PasswordInputState extends State<PasswordInput> {
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -13,7 +17,8 @@ class _PasswordInputState extends State<PasswordInput> {
       child: Container(
         height: 60,
         width: MediaQuery.of(context).size.width,
-        child: TextField(
+        child: TextFormField(
+          controller: PasswordInput.passwordController,
           style: TextStyle(
             color: Colors.white,
           ),
@@ -28,6 +33,14 @@ class _PasswordInputState extends State<PasswordInput> {
               color: Colors.white70,
             ),
           ),
+          validator: (value) {
+            if (value.isEmpty) {
+              return 'Enter Password';
+            } else if (value.length < 6) {
+              return 'Password must be atleast 6 characters!';
+            }
+            return null;
+          },
         ),
       ),
     );

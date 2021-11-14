@@ -7,11 +7,16 @@ import 'package:challeng/widget/verticalText.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
+  static final formKey=GlobalKey<FormState>();
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+   
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,23 +30,26 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: ListView(
           children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      VerticalText(),
-                      TextLogin(),
-                    ]),
-                InputEmail(),
-                PasswordInput(),
-                ButtonLogin(),
-                SizedBox(
-                  height: 10,
-                ),
-                FirstTime(),
-              ],
+            Form(
+              key: LoginPage.formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        VerticalText(),
+                        TextLogin(),
+                      ]),
+                  InputEmail(),
+                  PasswordInput(),
+                  ButtonLogin(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FirstTime(),
+                ],
+              ),
             ),
           ],
         ),

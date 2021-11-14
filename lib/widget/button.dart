@@ -1,4 +1,10 @@
+import 'dart:ui';
+
 import 'package:challeng/pages/home.page.dart';
+import 'package:challeng/pages/login.page.dart';
+import 'package:challeng/widget/inputEmail.dart';
+import 'package:challeng/widget/password.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ButtonLogin extends StatefulWidget {
@@ -7,6 +13,45 @@ class ButtonLogin extends StatefulWidget {
 }
 
 class _ButtonLoginState extends State<ButtonLogin> {
+  bool isLoading = false;
+
+  void logInToFb() {
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: InputEmail.emailController.text,
+            password: PasswordInput.passwordController.text)
+        .then((result) {
+      isLoading = false;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
+    }).catchError((err) {
+      print(err.message);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: Color.fromRGBO(2, 59, 71, 1),
+              title: Text("Error",style: TextStyle(color: Colors.white70),),
+              content: Text(err.message,style: TextStyle(color: Colors.white70)),
+              actions: [
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.white54),
+                  ),
+                  child: Text("Ok",style: TextStyle(color: Colors.blue[900]),),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,8 +77,12 @@ class _ButtonLoginState extends State<ButtonLogin> {
         ),
         child: FlatButton(
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Home()));
+            if (LoginPage.formKey.currentState.validate()) {
+              setState(() {
+                isLoading = true;
+              });
+              logInToFb();
+            }
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
