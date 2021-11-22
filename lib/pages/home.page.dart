@@ -6,8 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key key}) : super(key: key);
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -64,7 +62,7 @@ class _HomeState extends State<Home> {
                             builder: (BuildContext context) => LoginPage(),
                           ),
                           (route) =>
-                              false, //if you want to disable back feature set to false
+                              true, //if you want to disable back feature set to false
                         );
                       }
                     },

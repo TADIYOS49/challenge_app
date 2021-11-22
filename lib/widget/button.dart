@@ -26,6 +26,7 @@ class _ButtonLoginState extends State<ButtonLogin> {
         context,
         MaterialPageRoute(builder: (context) => Home()),
       );
+      
     }).catchError((err) {
       print(err.message);
       showDialog(

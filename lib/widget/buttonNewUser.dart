@@ -1,6 +1,8 @@
+import 'package:challeng/controllers/database.controller.dart';
 import 'package:challeng/pages/home.page.dart';
 import 'package:challeng/pages/newuser.page.dart';
 import 'package:challeng/widget/newEmail.dart';
+import 'package:challeng/widget/newName.dart';
 import 'package:challeng/widget/password.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,17 +19,21 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
 
   //     FirebaseDatabase.instance.reference().child("Users");
 
-  void registerToFb() {
+  void registerToFb() async {
     firebaseAuth
         .createUserWithEmailAndPassword(
             email: NewEmail.emailController.text,
             password: PasswordInput.passwordController.text)
-        .then((res) {
+        .then((res) async {
       isLoading = false;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => Home()),
       );
+      await DatabaseService(id: res.user.uid).addusertodb(
+          NewEmail.emailController.text,
+          NewNome.nameController.text,
+          PasswordInput.passwordController.text);
     }).catchError((err) {
       showDialog(
           context: context,
