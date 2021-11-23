@@ -20,4 +20,20 @@ class DatabaseService {
         .doc(id)
         .set({'email': email, 'name': name, 'password': password, 'uid': id});
   }
+
+  Future addchallengetodb(String name, String subject, DateTime startdate,
+      DateTime finishdate, Object goal, String team) async {
+    return await challengcolleciton.doc().set({
+      'challenge_name':name,
+      'challenge_subject':subject,
+      //needs to be updated 
+      'creater_name':'cat',
+      'creator_uid':id,
+      'finish_date':finishdate,
+      //needs to be updated
+      'goal_id':"test",
+      'start_date':finishdate,
+      'team_names':team
+    });
+  }
 }

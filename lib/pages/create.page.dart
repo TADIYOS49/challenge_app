@@ -1,8 +1,10 @@
 import 'package:challeng/pages/goal_create.page.dart';
+import 'package:challeng/controllers/database.controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Create_Challenge extends StatefulWidget {
-  const Create_Challenge({Key key}) : super(key: key);
+  static final keys = GlobalKey<FormState>();
 
   @override
   _Create_ChallengeState createState() => _Create_ChallengeState();
@@ -12,6 +14,9 @@ class _Create_ChallengeState extends State<Create_Challenge> {
   DateTime selectedDate = DateTime.now();
   DateTime firstDate;
   DateTime lastDate;
+  TextEditingController challenge_name = TextEditingController();
+  TextEditingController challenge_subject = TextEditingController();
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   Widget smallcontainer(String first, String second) {
     return Container(
@@ -132,8 +137,9 @@ class _Create_ChallengeState extends State<Create_Challenge> {
       });
   }
 
-  TextField textfield(String name) {
-    return TextField(
+  TextFormField textfield(String name, TextEditingController cont) {
+    return TextFormField(
+      controller: cont,
       style: TextStyle(
         color: Colors.white,
       ),
@@ -155,7 +161,48 @@ class _Create_ChallengeState extends State<Create_Challenge> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [IconButton(icon: Icon(Icons.save_rounded), onPressed: () {})],
+        actions: [
+          IconButton(
+              icon: Icon(Icons.save_rounded),
+              onPressed: () async {
+                await DatabaseService(id: firebaseAuth.currentUser.uid)
+                    .addchallengetodb(
+                        challenge_name.text,
+                        challenge_subject.text,
+                        DateTime.now(),
+                        DateTime.now(),
+                        null,
+                        "wakatech");
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: Color.fromRGBO(2, 59, 71, 1),
+                        title: Text(
+                          "",
+                          style: TextStyle(color: Colors.white70),
+                        ),
+                        content: Text("Challenge Added",
+                            style: TextStyle(color: Colors.white70)),
+                        actions: [
+                          ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.white54),
+                            ),
+                            child: Text(
+                              "Ok",
+                              style: TextStyle(color: Colors.blue[900]),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ],
+                      );
+                    });
+              })
+        ],
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Text(
@@ -179,57 +226,60 @@ class _Create_ChallengeState extends State<Create_Challenge> {
           padding: EdgeInsets.symmetric(
               vertical: MediaQuery.of(context).size.height * 0.12,
               horizontal: MediaQuery.of(context).size.width * 0.02),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              space(0.07),
-              textfield("Challenge Name"),
-              space(0.07),
-              textfield("Challenge Subject"),
-              space(0.07),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FlatButton.icon(
-                      textColor: Colors.white70,
-                      onPressed: () {
-                        _selectDate(context, 1);
-                      },
-                      icon: Icon(Icons.calendar_today_rounded),
-                      label: Text(firstDate == null
-                          ? "Start Date"
-                          : "${firstDate.day}/${firstDate.month}/${firstDate.year}")),
-                  FlatButton.icon(
-                      textColor: Colors.white70,
-                      onPressed: () {
-                        _selectDate(context, 2);
-                      },
-                      icon: Icon(Icons.calendar_today_rounded),
-                      label: Text(lastDate == null
-                          ? "Finish Date"
-                          : "${lastDate.day}/${lastDate.month}/${lastDate.year}")),
-                ],
-              ),
-              space(0.04),
-              //here goal label
-              label("Goal"),
-              space(0.02),
-              //container
-              maincontainer("Goal", "Points"),
-              space(0.02),
-              //smallcontainer
-              smallcontainer("here is an example", "6"),
-              space(0.02),
-              //button to add
-              actionbutton("Add Goal", 1),
-              label("Team"),
-              space(0.02),
-              maincontainer("Team Name", ""),
-              space(0.02),
-              smallcontainer("Team 1", ""),
-              space(0.02),
-              actionbutton("Add Team", 2)
-            ],
+          child: Form(
+            key: Create_Challenge.keys,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                space(0.07),
+                textfield("Challenge Name", challenge_name),
+                space(0.07),
+                textfield("Challenge Subject", challenge_subject),
+                space(0.07),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    FlatButton.icon(
+                        textColor: Colors.white70,
+                        onPressed: () {
+                          _selectDate(context, 1);
+                        },
+                        icon: Icon(Icons.calendar_today_rounded),
+                        label: Text(firstDate == null
+                            ? "Start Date"
+                            : "${firstDate.day}/${firstDate.month}/${firstDate.year}")),
+                    FlatButton.icon(
+                        textColor: Colors.white70,
+                        onPressed: () {
+                          _selectDate(context, 2);
+                        },
+                        icon: Icon(Icons.calendar_today_rounded),
+                        label: Text(lastDate == null
+                            ? "Finish Date"
+                            : "${lastDate.day}/${lastDate.month}/${lastDate.year}")),
+                  ],
+                ),
+                space(0.04),
+                //here goal label
+                label("Goal"),
+                space(0.02),
+                //container
+                maincontainer("Goal", "Points"),
+                space(0.02),
+                //smallcontainer
+                smallcontainer("here is an example", "6"),
+                space(0.02),
+                //button to add
+                actionbutton("Add Goal", 1),
+                label("Team"),
+                space(0.02),
+                maincontainer("Team Name", ""),
+                space(0.02),
+                smallcontainer("Team 1", ""),
+                space(0.02),
+                actionbutton("Add Team", 2)
+              ],
+            ),
           ),
         ),
       ),

@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ButtonLogin extends StatefulWidget {
+  static String id;
   @override
   _ButtonLoginState createState() => _ButtonLoginState();
 }
@@ -26,7 +27,7 @@ class _ButtonLoginState extends State<ButtonLogin> {
         context,
         MaterialPageRoute(builder: (context) => Home()),
       );
-      
+      ButtonLogin.id = result.user.uid;
     }).catchError((err) {
       print(err.message);
       showDialog(
@@ -34,15 +35,21 @@ class _ButtonLoginState extends State<ButtonLogin> {
           builder: (BuildContext context) {
             return AlertDialog(
               backgroundColor: Color.fromRGBO(2, 59, 71, 1),
-              title: Text("Error",style: TextStyle(color: Colors.white70),),
-              content: Text(err.message,style: TextStyle(color: Colors.white70)),
+              title: Text(
+                "Error",
+                style: TextStyle(color: Colors.white70),
+              ),
+              content:
+                  Text(err.message, style: TextStyle(color: Colors.white70)),
               actions: [
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Colors.white54),
+                    backgroundColor: MaterialStateProperty.all(Colors.white54),
                   ),
-                  child: Text("Ok",style: TextStyle(color: Colors.blue[900]),),
+                  child: Text(
+                    "Ok",
+                    style: TextStyle(color: Colors.blue[900]),
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

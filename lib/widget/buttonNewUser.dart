@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ButtonNewUser extends StatefulWidget {
+  static String id;
   @override
   _ButtonNewUserState createState() => _ButtonNewUserState();
 }
@@ -30,6 +31,7 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
         context,
         MaterialPageRoute(builder: (context) => Home()),
       );
+      ButtonNewUser.id = res.user.uid;
       await DatabaseService(id: res.user.uid).addusertodb(
           NewEmail.emailController.text,
           NewNome.nameController.text,
