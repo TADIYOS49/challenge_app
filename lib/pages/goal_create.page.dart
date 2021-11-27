@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:challeng/controllers/database.controller.dart';
 
 class Goal_Create extends StatefulWidget {
   const Goal_Create({Key key}) : super(key: key);
@@ -12,6 +14,10 @@ class Goal_Create extends StatefulWidget {
 class _Goal_CreateState extends State<Goal_Create> {
   bool isCheckedtimestamp = false;
   bool isCheckedpictures = false;
+
+  TextEditingController goal_name = TextEditingController();
+  TextEditingController points = TextEditingController();
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   Widget checkbox(String name, bool index) {
     return Row(
@@ -43,8 +49,9 @@ class _Goal_CreateState extends State<Goal_Create> {
     );
   }
 
-  TextField textfield(String name) {
-    return TextField(
+  TextFormField textfield(String name, cont) {
+    return TextFormField(
+      controller: cont,
       style: TextStyle(
         color: Colors.white,
       ),
@@ -62,11 +69,21 @@ class _Goal_CreateState extends State<Goal_Create> {
     );
   }
 
+  String result;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [IconButton(icon: Icon(Icons.save_rounded), onPressed: () {})],
+        actions: [
+          IconButton(
+              icon: Icon(Icons.save_rounded),
+              onPressed: () async {
+                await DatabaseService(id: firebaseAuth.currentUser.uid)
+                    .addgoaltodb(goal_name.text, points.text,
+                        isCheckedtimestamp, isCheckedpictures);
+                Navigator.of(context).pop();
+              })
+        ],
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Text(
@@ -96,9 +113,9 @@ class _Goal_CreateState extends State<Goal_Create> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               space(0.06),
-              textfield("Goal Name"),
+              textfield("Goal Name", goal_name),
               space(0.07),
-              textfield("Points"),
+              textfield("Points", points),
               space(0.07),
               checkbox("Use Timestamps?", true),
               space(0.05),

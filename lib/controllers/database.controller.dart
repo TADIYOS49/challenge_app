@@ -22,18 +22,28 @@ class DatabaseService {
   }
 
   Future addchallengetodb(String name, String subject, DateTime startdate,
-      DateTime finishdate, Object goal, String team) async {
+      DateTime finishdate, String goal, String team) async {
     return await challengcolleciton.doc().set({
-      'challenge_name':name,
-      'challenge_subject':subject,
-      //needs to be updated 
-      'creater_name':'cat',
-      'creator_uid':id,
-      'finish_date':finishdate,
+      'challenge_name': name,
+      'challenge_subject': subject,
       //needs to be updated
-      'goal_id':"test",
-      'start_date':finishdate,
-      'team_names':team
+      'creater_name': user.displayName,
+      'creator_uid': id,
+      'finish_date': finishdate,
+      //needs to be updated
+      'goal_id': goal,
+      'start_date': finishdate,
+      'team_names': team
+    });
+  }
+
+  Future addgoaltodb(
+      String name, String points, bool timestamp, bool pic) async {
+    return await goalcolleciton.doc().set({
+      'goal_name':name,
+      'points':points,
+      'timestamp':timestamp,
+      'pictures':pic
     });
   }
 }
